@@ -1,0 +1,28 @@
+int searchRotated(int arr[], int n, int target) {
+    int s = 0, e = n - 1;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;
+
+        if (arr[mid] == target) {
+            return mid;
+        }
+        else if (arr[s] <= arr[mid]) {
+            // Left part is sorted
+            if (target >= arr[s] && target < arr[mid]) {
+                e = mid - 1;
+            } else {
+                s = mid + 1;
+            }
+        }
+        else {
+            // Right part is sorted
+            if (target > arr[mid] && target <= arr[e]) {
+                s = mid + 1;
+            } else {
+                e = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
