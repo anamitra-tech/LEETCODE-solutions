@@ -1,0 +1,27 @@
+int findMin(vector<int>& arr) {
+    int n = arr.size();
+    int s = 0, e = n - 1;
+    int smallMin = INT_MAX;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;
+
+        // If array is already sorted 
+        if (arr[s] <= arr[e]) {
+            smallMin = min(smallMin, arr[s]);
+            break;
+        }
+
+        // Left part is sorted
+        if (arr[s] <= arr[mid]) {
+            smallMin = min(smallMin, arr[s]); 
+            s = mid + 1; // go right,as left is already sorted
+        }
+        // Right part is sorted
+        else {
+            smallMin = min(smallMin, arr[mid]); 
+            e = mid - 1; // go left,as right is already sorted
+        }
+    }
+    return smallMin;
+}
