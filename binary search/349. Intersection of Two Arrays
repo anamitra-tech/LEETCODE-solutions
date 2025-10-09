@@ -1,0 +1,25 @@
+
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int, int> freq1, freq2;
+        vector<int> result;
+
+        // Count frequencies for nums1
+        for (int num : nums1) {
+            freq1[num]++;
+        }
+
+        // Count frequencies for nums2
+        for (int num : nums2) {
+            freq2[num]++;
+        }
+
+        // Loop through freq1 and check for common keys in freq2
+        for (auto& pair : freq1) {
+            int num = pair.first;
+            if (freq2.find(num) != freq2.end()) {
+                result.push_back(num);  
+            }
+        }
+
+        return result;
+    }
