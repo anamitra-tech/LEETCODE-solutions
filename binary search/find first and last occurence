@@ -1,0 +1,45 @@
+// Find first occurrence
+int findFirst(vector<int>& arr, int target) {
+    int s = 0, e = arr.size() - 1;
+    int first = -1;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;
+
+        if (arr[mid] == target) {
+            if (mid == 0 || arr[mid - 1] != target) {
+                first = mid;
+                break;
+            } else {
+                e = mid - 1;
+            }
+        }
+        else if (arr[mid] < target) s = mid + 1;
+        else e = mid - 1;
+    }
+
+    return first;
+}
+
+// Find last occurrence
+int findLast(vector<int>& arr, int target) {
+    int s = 0, e = arr.size() - 1;
+    int last = -1;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;
+
+        if (arr[mid] == target) {
+            if (mid == arr.size() - 1 || arr[mid + 1] != target) {
+                last = mid;
+                break;
+            } else {
+                s = mid + 1;
+            }
+        }
+        else if (arr[mid] < target) s = mid + 1;
+        else e = mid - 1;
+    }
+
+    return last;
+}
