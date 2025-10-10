@@ -1,0 +1,29 @@
+int findPeakElement(vector<int>& arr) {
+    int n = arr.size();
+    int s = 0, e = n - 1;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;
+
+        // Ascending slope 
+        if (mid == 0 || arr[mid] > arr[mid - 1]) {
+            // Check if current element is a peak
+            if (mid == n - 1 || arr[mid] > arr[mid + 1]) {
+                return mid;
+            }
+            // Move right to continue searching
+            s = mid + 1;
+        } 
+        // Descending slope
+        else {
+            // Check if current element is a peak
+            if (mid - 1 < 0 || arr[mid] > arr[mid - 1]) {
+                return mid;
+            }
+            // Move left to continue searching
+            e = mid - 1;
+        }
+    }
+
+    return -1; // Should never reach here
+}
