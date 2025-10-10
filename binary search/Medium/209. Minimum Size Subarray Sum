@@ -1,0 +1,33 @@
+int minSubArrayLen(int target, vector<int>& nums) {
+    int n = nums.size();
+    vector<int> prefix(n + 1, 0);
+
+    // Build prefix sums
+    for (int i = 1; i <= n; ++i)
+        prefix[i] = prefix[i - 1] + nums[i - 1];
+
+    int minLen = INT_MAX;
+
+    // Step 2: For each starting point i
+    for (int i = 0; i < n; ++i) {
+        int find = prefix[i] + target;
+
+        int s = i + 1, e = n, ans = -1;
+
+        while (s <= e) {
+            int mid = s + (e - s) / 2;
+
+            if (prefix[mid] >= find) {
+                ans = mid;       
+                e = mid - 1;     // but maybe smaller j exists 
+            } else {
+                s = mid + 1;     // need bigger prefix sum 
+            }
+        }
+
+        if (ans != -1)
+            minLen = min(minLen, ans - i);
+    }
+
+    return (minLen == INT_MAX) ? 0 : minLen;
+}
