@@ -1,0 +1,42 @@
+int findRadius(vector<int>& houses, vector<int>& heaters) {
+    sort(houses.begin(), houses.end());
+    sort(heaters.begin(), heaters.end());
+
+    // Special case: only one heater
+    if (heaters.size() == 1) {
+        return max(abs(houses.front() - heaters[0]), abs(houses.back() - heaters[0]));
+    }
+
+    int s1 = 0, e1 = max(houses.back(), heaters.back());
+    int mid1, mid2, diff1, diff2, ans = 0;
+
+    while (s1 <= e1) {
+        mid1 = (s1 + e1) / 2;
+        mid2 = heaters[heaters.size()/2];
+        diff1 = abs(mid1 - mid2);
+        diff2 = abs(houses.back() - heaters.back());
+
+        bool allCovered = true;
+        for (int i = 0; i < houses.size(); i++) {
+            int nearest = lower_bound(heaters.begin(), heaters.end(), houses[i]) - heaters.begin();
+
+            //lower bound gives the index of the nearest heater
+
+            int left = (nearest > 0) ? abs(houses[i] - heaters[nearest - 1]) : INT_MAX;
+            int right = (nearest < heaters.size()) ? abs(houses[i] - heaters[nearest]) : INT_MAX;
+            if (min(left, right) > mid1) {
+                allCovered = false;
+                break;
+            }
+        }
+
+        if (allCovered && diff1 <= diff2) {
+            ans = diff1;
+            e1 = mid1 - 1;
+        } else {
+            s1 = mid1 + 1;
+        }
+    }
+
+    return ans;
+}
