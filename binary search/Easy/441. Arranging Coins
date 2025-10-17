@@ -1,0 +1,20 @@
+int arrangeCoins(int n) {
+    int s = 1, e = n;
+    int ans = 0;
+
+    while (s <= e) {
+        int mid = s + (e - s) / 2;         
+        int completed = mid * (mid + 1) / 2; // total coins needed for mid rows
+
+        if (completed == n) {
+            return mid;                     
+        } else if (completed < n) {
+            ans = mid;                      
+            s = mid + 1;                 
+        } else {
+            e = mid - 1;                     
+        }
+    }
+
+    return ans;
+}
