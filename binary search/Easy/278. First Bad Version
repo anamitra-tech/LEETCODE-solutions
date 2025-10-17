@@ -1,0 +1,13 @@
+int firstBadVersion(int n) {
+    int s = 1, e = n;
+    while (s < e) {              // loop until s == e
+        int mid = s + (e - s) / 2;
+        if (isBadVersion(mid)) {
+            e = mid;             // first bad version is at mid or before
+        } else {
+            s = mid + 1;         // first bad version is after mid
+        }
+    }
+    return s;                    // s == e → first bad version
+}
+//mistake was not to check the e=mid-1 as the question said that after the bad ones were only bad not before that
