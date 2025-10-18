@@ -1,0 +1,48 @@
+//sorted(exclusively)
+
+int findPairs(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        int s = 0, e = 1, count = 0;
+
+        while (s < n && e < n) {
+            if (s == e) { e++; continue; }
+
+            int diff = nums[e] - nums[s];
+
+            if (diff == k) {
+                count++;
+                int val1 = nums[s], val2 = nums[e];
+                while (s < n && nums[s] == val1) s++;//for the duplicate handling
+                while (e < n && nums[e] == val2) e++;//"                        " 
+            } 
+            else if (diff > k)
+                s++;
+            else
+                e++;
+        }
+
+        return count;
+    }
+
+//without sorting
+
+    int findPairs(vector<int>& nums, int k) {
+
+        unordered_map<int,int> freq;
+        for (int x : nums) freq[x]++;
+
+        int count = 0;
+        if (k == 0) {
+            // same numbers repeating
+            for (auto &p : freq)
+                if (p.second > 1) count++;
+        } else {
+            // look for num + k
+            for (auto &p : freq)   // auto tells that p is a pair
+                if (freq.count(p.first + k))
+                    count++;
+        }
+        return count;
+    }
+
