@@ -1,0 +1,29 @@
+
+    int triangleNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end());  
+        int n = nums.size();
+        int count = 0;
+     
+        for (int k = 2; k < n; ++k) {
+            int i = 0, j = k - 1;
+
+            while (i < j) {
+               
+                if (nums[i] + nums[j] > nums[k]) {
+                    // All pairs (i, i+1, ..., j-1) will be valid with nums[k],not count++
+                   
+                    count += (j - i);
+                    j--; 
+                } else {
+                    i++;  
+                }
+            }
+        }
+
+        return count;  
+    }
+
+
+//Trick-why (j-i),Here we are not looking for exact values — any triplet satisfying the inequality works.
+Because the array is sorted, if the smallest value with nums[j] satisfies the inequality,
+then all values in between also satisfy it.
