@@ -1,0 +1,19 @@
+
+    int singleNonDuplicate(vector<int>& arr) {
+        int s = 0, e = arr.size() - 1;
+
+        while (s < e) {
+            int mid = s + (e - s) / 2;
+
+            // Ensure mid is always at the first occurrence of a pair
+            if (mid % 2 == 1) mid--;
+
+            if (arr[mid] == arr[mid + 1]) {
+                s = mid + 2;     //it shows that left side is sorted then only move left
+            } else {
+                e = mid;//the single element will be at left as it has broken the flow that is why it is at left
+            }
+        }
+
+        return arr[s]; // The single element is at index s
+    }
