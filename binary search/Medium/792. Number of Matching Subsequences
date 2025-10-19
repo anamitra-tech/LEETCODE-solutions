@@ -1,0 +1,54 @@
+
+    int numMatchingSubseq(string s, vector<string>& words) {
+        // Step 1: Build a map of character → sorted indices in s
+        unordered_map<char, vector<int>> freq;
+        for (int i = 0; i < s.size(); i++) {
+            freq[s[i]].push_back(i);
+        }
+
+        int count = 0;
+
+        // Step 2: Check each word if it is a subsequence
+        for (string &word : words) {
+            int prev = -1;  // last matched index in s
+            bool valid = true;
+
+            for (char ch : word) {
+                if (freq.find(ch) == freq.end()) {  // character not in s
+                    valid = false;
+                    break;
+                }
+
+                vector<int>& pos = freq[ch];  // positions of ch in s
+                int start = 0, end = pos.size() - 1;
+                int found = -1;
+
+                // Binary search: find smallest index > prev
+                while (start <= end) {
+                    int mid = start + (end - start) / 2;
+                    if (pos[mid] > prev) {
+                        found = pos[mid];  // candidate index
+                        end = mid - 1;     // try to find smaller valid index
+                    } else {
+                        start = mid + 1;   // too small, move right
+                    }
+                }
+
+                if (found == -1) {  // no valid index after prev
+                    valid = false;
+                    break;
+                }
+
+                prev = found;  // update prev for next character
+            }
+
+            if (valid) count++;  // word is a subsequence
+        }
+
+        return count;
+    }
+
+
+
+//end=mid-1 so that the loop will be over and the pos can be updated thus end =mid-1 is necessary even if it s smaller
+than the prev
