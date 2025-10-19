@@ -1,0 +1,31 @@
+
+    vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k) {
+        int n = arr.size();
+        
+        // min-heap: compare fractions a/b and c/d
+        auto cmp = [&](pair<int,int>& a, pair<int,int>& b){
+            return (double)arr[a.first]/arr[a.second] > (double)arr[b.first]/arr[b.second];
+        };
+        
+        priority_queue<pair<int,int>, vector<pair<int,int>>, decltype(cmp)> pq(cmp);
+------------------------------------------------------------------------------------------------------------------        
+        // initialize heap with fractions with largest denominator
+        for(int i = 0; i < n-1; i++){
+            pq.push({i, n-1});
+        }
+        
+        // pop k-1 smallest fractions
+        for(int t = 0; t < k-1; t++){
+            auto [i,j] = pq.top(); pq.pop();
+            if(j-1 > i){
+                pq.push({i, j-1});
+            }
+        }
+        
+        auto [i,j] = pq.top();
+        return {arr[i], arr[j]};
+    }
+
+
+//to avoid big o n2 so we first initialize with the greated denominator and when we pop then we push (i,j-1) and donot iterate
+the i early in this way flow is maintained.
