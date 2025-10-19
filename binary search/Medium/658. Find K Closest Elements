@@ -1,0 +1,24 @@
+
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int left = 0, right = arr.size() - k; // right will not be n-1 as the arr[mis] and arr[mid+k] might go out of bounds
+
+        // Binary search to find the best left boundary
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            // Compare distance between arr[mid] and arr[mid + k] to x
+            if (x - arr[mid] > arr[mid + k] - x) {
+                left = mid + 1; // move window to the right
+            } else {
+                right = mid;    // move window to the left
+            }
+        }
+
+        // Collect the k elements starting from left
+        vector<int> result(arr.begin() + left, arr.begin() + left + k);
+        return result;
+    }
+
+//x - arr[mid] > arr[mid + k] - x this means that the mid is far away from c do move right so that smaller distance
+//right=mid and not mid-1 as we have got the smaller distand and mid can be the answer so for not to discard this we use 
+right=mid not mid-1(in typical cases as we know that this mid is not the answer).
