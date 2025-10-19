@@ -1,0 +1,38 @@
+//two pointer time is big o sqrt(c) and sapce is big o 1
+
+int l = 0, r = sqrt(c);
+while (l <= r) {
+    long long sum = 1LL*l*l + 1LL*r*r;
+    if (sum == c) return true;
+    else if (sum < c) l++;  
+    else r--;                 
+}
+
+//bianry and hashmap time co mplexity is big o sqrt(c) and space is big o sqrt(c)
+
+
+    bool judgeSquareSum(int c) {
+        unordered_set<long long> freq;
+
+        // Store all perfect squares <= c
+        for (long long i = 0; i * i <= c; i++) {
+            freq.insert(i * i);
+        }
+
+        int s = 0;
+        int e = c;  // search space 0..c
+
+        while (s <= e) {
+            int mid = s + (e - s) / 2;
+            long long square = 1LL * mid * mid;
+
+            if (square == c) return true;              // single square equals c
+            else if (square > c) e = mid - 1;          // too large, move left
+            else if (freq.count(c - square)) return true; // found pair
+            else s++;                                   // move forward if no pair found
+        }
+
+        return false; // no pair found
+    }
+
+//wasnt able to analyze the case where the freq.cout  would fail(s++)
