@@ -1,0 +1,23 @@
+
+    int numSubarrayProductLessThanK(vector<int>& nums, int k) {
+        if (k <= 1) return 0;
+
+        int count = 0, left = 0;
+        long long product = 1;
+
+        for (int right = 0; right < nums.size(); right++) {
+            product *= nums[right]; // include nums[right]
+
+            // shrink window until product < k
+            while (product >= k && left <= right) {
+                product /= nums[left];
+                left++;
+            }
+
+            count += right - left + 1; // subarrays ending at 'right'
+        }
+
+        return count;
+    }
+
+//we must use the while one instead of if so that we decrease till product is <=k as if is only a single iterator
