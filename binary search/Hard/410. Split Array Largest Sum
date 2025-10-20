@@ -1,0 +1,38 @@
+
+    int splitArray(std::vector<int>& nums, int k) {
+        int low = *std::max_element(nums.begin(), nums.end());  // Largest element in nums
+        int high = std::accumulate(nums.begin(), nums.end(), 0);  // Sum of all elements in nums
+
+        // Function to check if we can split the array into at most k subarrays
+        auto canSplit = [&](int maxSum) {
+            int currentSum = 0;
+            int subarrayCount = 1;  // At least one subarray
+
+            for (int num : nums) {
+                if (currentSum + num > maxSum) {
+                    // If adding the current number exceeds maxSum, start a new subarray
+                    subarrayCount++;
+                    currentSum = num;
+                    if (subarrayCount > k) {
+                        return false;  // More than k subarrays needed, return false
+                    }
+                } else {
+                    currentSum += num;  // Add the number to the current subarray
+                }
+            }
+            return true;
+        };
+
+        // Binary search to find the smallest maxSum that allows k subarrays
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (canSplit(mid)) {
+                high = mid;  // Try a smaller max sum
+            } else {
+                low = mid + 1;  // Increase the max sum
+            }
+        }
+
+        return low;  // The smallest possible max sum
+    }
+
