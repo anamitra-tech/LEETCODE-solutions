@@ -1,0 +1,14 @@
+vector<int> current = intervals[0];
+
+for (int i = 1; i < n; i++) {
+    if (intervals[i][0] <= current[1]) {
+        current[1] = max(current[1], intervals[i][1]);
+    } else {
+        merged.push_back(current);
+        current = intervals[i];
+    }
+}
+merged.push_back(current);
+
+
+//here do not use j=i+1 as we dont know up to what extent it will merge thus use curr
