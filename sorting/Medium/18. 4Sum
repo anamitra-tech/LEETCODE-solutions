@@ -1,0 +1,46 @@
+
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> result;
+        int n = nums.size();
+        if (n < 4) return result;
+
+        sort(nums.begin(), nums.end());
+        unordered_map<long long, vector<pair<int, int>>> pairSum; // sum -> list of pairs
+
+        for (int i = 0; i < n; i++) {
+            // Step 1: for current i, try to find complements using previous pairs
+            for (int j = i + 1; j < n; j++) {
+                long long currSum = (long long)nums[i] + nums[j];
+                long long need = (long long)target - currSum;
+
+                if (pairSum.find(need) != pairSum.end()) {
+                    for (auto &p : pairSum[need]) {
+                        int a = p.first, b = p.second;
+                        // ensure indices are increasing (no overlap)
+                        if (b < i) {
+                            result.push_back({nums[a], nums[b], nums[i], nums[j]});
+                        }
+                    }
+                }
+            }
+
+            // Step 2: store all pairs ending at i for future use
+            for (int k = 0; k < i; k++) {
+                long long sum = (long long)nums[k] + nums[i];
+                pairSum[sum].push_back({k, i});
+            }
+        }
+
+        // Step 3: remove duplicates
+        sort(result.begin(), result.end());
+        result.erase(unique(result.begin(), result.end()), result.end());
+
+        return result;
+    }
+
+//this is big o n2 solution where we can store the pairs too in hasmaps but to avoid duplicates we ensure that the pairs
+are made after the j loop so that pairs are made before the i loops 
+//and also in this way result can be stored
+//also to avoid duplicates while(k<n)ifarr[k]==arr[k+1] then continue and in case of i and j it is if not while as we move 
+forward once so no need of while loop 
+//the b<i is for ensurance check
