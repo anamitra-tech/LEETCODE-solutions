@@ -1,0 +1,20 @@
+
+    int hIndex(vector<int>& citations) {
+        sort(citations.begin(), citations.end()); // Step 1: Sort the citations
+        int n = citations.size();
+        int left = 0, right = n - 1, hIndex = 0;
+
+        while (left <= right) { // Step 2: Binary search
+            int mid = left + (right - left) / 2;
+            int h = n - mid; // Potential H-Index
+
+            if (citations[mid] >= h) {
+                hIndex = h;   // Update H-Index
+                right = mid - 1; // Move left to find a higher valid H-Index
+            } else {
+                left = mid + 1; // Increase search range
+            }
+        }
+
+        return hIndex;
+    }
