@@ -1,0 +1,9 @@
+unordered_set<int> uniqueNumbers;
+        for (int num : nums) {
+            if (num > 0) {
+                uniqueNumbers.insert(num);
+            }
+        }
+        return uniqueNumbers.size();
+
+//this is a coooooolllll trick
