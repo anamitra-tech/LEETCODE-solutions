@@ -1,0 +1,10 @@
+int mid = (n + 1) / 2;
+int s = mid - 1; // start from end of left half (reversed)
+int e = n - 1;   // start from end of right half (reversed)
+
+while (s >= 0 || e >= mid) {
+    if (s >= 0) result.push_back(nums[s--]);
+    if (e >= mid) result.push_back(nums[e--]);
+}
+
+//here if(arr[s]<arr[e]) no this is wrong, it should be if (s >= 0) and if (e >= mid) joh tum chahte hi pehle s then e then s then e
