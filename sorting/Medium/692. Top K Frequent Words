@@ -1,0 +1,24 @@
+ vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string, int> freqMap;  // Step 1: Count word frequencies
+
+        for (string &word : words) {
+            freqMap[word]++;
+        }
+
+        // Step 2: Store word-frequency pairs in a vector
+        vector<pair<string, int>> freqVec(freqMap.begin(), freqMap.end());
+
+        // Step 3: Sort based on frequency (desc) and lexicographically (asc)
+        sort(freqVec.begin(), freqVec.end(), [](const pair<string, int>& a, const pair<string, int>& b) {
+            if (a.second == b.second) return a.first < b.first;  // Sort lexicographically if same frequency
+            return a.second > b.second;  // Higher frequency first
+        });
+
+        // Step 4: Pick the top K frequent words
+        vector<string> result;
+        for (int i = 0; i < k; i++) {
+            result.push_back(freqVec[i].first);
+        }
+
+        return result;
+    }
