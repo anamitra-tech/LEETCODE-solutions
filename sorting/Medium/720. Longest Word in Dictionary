@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string longestWord(vector<string>& words) {
+        sort(words.begin(), words.end()); // Sort in lexicographical order
+        unordered_set<string> seen;
+        string longest = "";
+
+        for (string word : words) {
+            // Check if it's a single-letter word OR if its prefix exists
+            if (word.size() == 1 || seen.count(word.substr(0, word.size() - 1))) {
+                seen.insert(word); // Add word to the set
+
+                // Update the longest word if it's longer
+                if (word.size() > longest.size()) {
+                    longest = word;
+                }
+            }
+        }
+
+        return longest;
+    }
+};
