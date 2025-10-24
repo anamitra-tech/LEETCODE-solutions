@@ -1,0 +1,31 @@
+  int findUnsortedSubarray(vector<int>& nums) {
+        int n = nums.size();
+        int start = 0, end = n - 1;
+        
+        // Find first index from left that is out of order
+        while (start < n - 1 && nums[start] <= nums[start + 1])
+            start++;
+        
+        if (start == n - 1) return 0; // already sorted
+        
+        // Find first index from right that is out of order
+        while (end > 0 && nums[end] >= nums[end - 1])
+            end--;
+        
+        // Find min and max in this range
+        int min_val = INT_MAX, max_val = INT_MIN;
+        for (int i = start; i <= end; i++) {
+            min_val = min(min_val, nums[i]);
+            max_val = max(max_val, nums[i]);
+        }
+        
+        // Expand till all the elements to the left of the start is samller than start
+        while (start > 0 && nums[start - 1] > min_val)
+            start--;
+        
+        // Expand till all the elements to the right of the end is greater than end
+        while (end < n - 1 && nums[end + 1] < max_val)
+            end++;
+        
+        return end - start + 1;
+    }
