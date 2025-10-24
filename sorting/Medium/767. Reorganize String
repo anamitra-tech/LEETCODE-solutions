@@ -1,0 +1,12 @@
+while (!pq.empty()) {
+    auto [count, ch] = pq.top(); pq.pop();
+    result += ch;  // Place the most frequent character
+
+    // Push the previous character back (if it still has occurrences left)
+    if (prev.first > 0) pq.push(prev);
+
+    // Reduce count and store current character as previous
+    prev = {count - 1, ch};
+}
+
+return result;
