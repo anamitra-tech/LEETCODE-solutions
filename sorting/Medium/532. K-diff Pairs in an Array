@@ -1,0 +1,28 @@
+  int findPairs(std::vector<int>& nums, int k) {
+        if (k < 0) return 0;  // k-diff pairs require non-negative k
+
+        std::unordered_map<int, int> freq;
+        int count = 0;
+
+        // Step 1: Count occurrences of each number
+        for (int num : nums) {
+            freq[num]++;
+        }
+
+        // Step 2: Iterate over map to find k-diff pairs
+        for (auto& [num, occurrence] : freq) {
+            if (k == 0) {
+                // Case when k = 0, we count elements appearing more than once
+                if (occurrence > 1) count++;
+            } 
+            else {
+                // Case when k > 0, check if (num + k) exists in map
+                if (freq.count(num + k)) count++;
+            }
+        }
+
+        return count;
+
+
+//in this since freq[nums]++ was done then only the uniqueness was maintained
+//but if we dont do this then duplicates will be counted like two sum
