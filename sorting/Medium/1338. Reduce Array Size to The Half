@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int minSetSize(vector<int>& arr) {
+    unordered_map<int, int> freq;
+    for (int x : arr)
+        freq[x]++;   // count frequency of each element
+
+    // max heap based on frequency
+    priority_queue<pair<int,int>> pq;
+    for (auto &p : freq)
+        pq.push({p.second, p.first}); // (frequency, number)
+
+    int count = 0;
+    int n = arr.size();
+    int target = n / 2; 
+
+    while (!pq.empty() && n > target) {
+        auto [frequency, number] = pq.top();
+        pq.pop();
+
+        n = n - frequency;  
+        count++;            
+    }
+
+    return count;
+}
