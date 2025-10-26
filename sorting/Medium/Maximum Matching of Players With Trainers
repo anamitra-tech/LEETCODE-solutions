@@ -1,0 +1,19 @@
+int matchPlayersAndTrainers(vector<int>& players, vector<int>& trainers) {
+        sort(players.begin(), players.end());
+        sort(trainers.begin(), trainers.end());
+
+        int count = 0;
+        int i = 0, j = 0;
+
+        while (i < players.size() && j < trainers.size()) {
+            if (players[i] <= trainers[j]) {  // If the player can be assigned to the trainer
+                count++;
+                i++;  // Move to the next player
+                j++;  // Move to the next trainer
+            } else {
+                j++;  // Skip this trainer and check the next one
+            }
+        }
+
+        return count;
+    }
