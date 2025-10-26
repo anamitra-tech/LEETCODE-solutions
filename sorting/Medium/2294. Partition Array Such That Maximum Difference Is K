@@ -1,0 +1,17 @@
+
+    int partitionArray(vector<int>& nums, int k) {
+        int n = nums.size();
+        if (n == 0) return 0;
+
+        int count = 1;           // At least one partition
+        int startVal = nums[0];  // Minimum value in current partition
+
+        for (int i = 1; i < n; i++) {
+            if (nums[i] - startVal > k) {
+                count++;          // Start new partition
+                startVal = nums[i];
+            }
+        }
+
+        return count;
+    }
