@@ -1,0 +1,40 @@
+  long long smallestNumber(long long num) {
+        if (num == 0) return 0; // Edge case for input 0
+
+        bool isNegative = (num < 0); // Check if the number is negative
+        num = abs(num); // Work with absolute value
+
+        vector<int> digits;
+
+        // Step 1: Extract digits of num and store them in digits vector
+        while (num > 0) {
+            digits.push_back(num % 10);
+            num /= 10;
+        }
+
+        if (isNegative) {
+            // Step 2: Sort digits in **descending order** for the most negative number
+            sort(digits.begin(), digits.end(), greater<int>());
+        } else {
+            // Step 2: Sort digits in **ascending order** for the smallest positive number
+            sort(digits.begin(), digits.end());
+
+            // Step 3: Ensure the first digit is not zero
+            if (digits[0] == 0) {
+                for (int i = 1; i < digits.size(); i++) {
+                    if (digits[i] != 0) {
+                        swap(digits[0], digits[i]); // Swap first 0 with first non-zero digit
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Step 4: Convert digits back to a number
+        long long result = 0;
+        for (int digit : digits) {
+            result = result * 10 + digit;
+        }
+
+        return isNegative ? -result : result; // Return negative if original number was negative
+    }
