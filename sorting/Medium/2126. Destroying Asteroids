@@ -1,0 +1,14 @@
+ bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        sort(asteroids.begin(), asteroids.end());  // Step 1: Sort the array
+        
+        long long currMass = mass;  // Use long long to prevent overflow
+
+        for (int asteroid : asteroids) {
+            if (currMass >= asteroid) {
+                currMass += asteroid;  // Add asteroid mass to current mass
+            } else {
+                return false;  // If asteroid is too big, return false
+            }
+        }
+        return true;  // All asteroids destroyed
+    }
