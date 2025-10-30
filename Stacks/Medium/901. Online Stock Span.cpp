@@ -14,3 +14,4 @@ public:
         return span;
     }
 };
+//here pair is imp to keep track of the count as once popped it will loose track so to keep that track it is imp
