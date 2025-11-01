@@ -22,3 +22,7 @@ public:
         return ans;
     }
 };
+
+//here count+=left-right is not valid as it counts all like 1,2,3 then 1 1,2 2,3 like this as we go towards right all the 
+//the subarrays inside it are valid but here only specific window is valid and inside that all the subarrays are valid
+//thast why
