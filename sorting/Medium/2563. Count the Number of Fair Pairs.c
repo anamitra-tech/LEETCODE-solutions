@@ -16,5 +16,4 @@ long long countFairPairs(vector<int>& nums, int lower, int upper) {
     sort(nums.begin(), nums.end());
     return countPairs(nums, upper) - countPairs(nums, lower - 1);
 }
-//the big misconception was that u thought ki count+=left-right will consider all the pairs ex 0,1 0,2 0,3 1,2 1,3 no
-//it only considers the 0,1 0,2 0,3 if u increament then it will consider 1,2 1,3 and if i is increamented then 2,3 like this
+
