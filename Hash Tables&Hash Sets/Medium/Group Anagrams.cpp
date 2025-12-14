@@ -1,0 +1,31 @@
+//Given an array of strings, group the strings that are anagrams of each other.
+//Return the grouped anagrams as a list of lists of strings.
+
+//Example:
+//Input:
+//["eat", "tea", "tan", "ate", "nat", "bat"]
+//Output:
+//["eat", "tea", "ate"],
+//["tan", "nat"],
+//["bat"]
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> mp;
+
+        for (string s : strs) {
+            string key = s;
+            sort(key.begin(), key.end());   // canonical form
+            mp[key].push_back(s);
+        }
+
+        vector<vector<string>> result;
+        for (auto &it : mp) {
+            result.push_back(it.second);
+        }
+        return result;
+    }
+};
