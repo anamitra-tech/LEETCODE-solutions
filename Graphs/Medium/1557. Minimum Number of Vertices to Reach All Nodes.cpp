@@ -25,3 +25,5 @@ public:
         return result;
     }
 };
+
+//always in dag always used indegree algorithm
