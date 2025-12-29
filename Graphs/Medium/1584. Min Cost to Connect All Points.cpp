@@ -65,3 +65,7 @@ public:
         return total_mst_weight;
     }
 };
+
+//rememver that in these cases prims is used not dijstras as dijstaras as mainly for minimum cost like shortest path this 
+//as a tree was formed for that mst algorithms must be be used
+
