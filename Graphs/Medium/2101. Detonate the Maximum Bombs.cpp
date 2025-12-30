@@ -66,3 +66,5 @@ private:
         return count;
     }
 };
+
+//here the use of bfs was used as we need the adjacent type of bombs and read questions carefully 
