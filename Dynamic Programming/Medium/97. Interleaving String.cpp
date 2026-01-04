@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        int m = s1.size();
+        int n = s2.size();
+
+        if (m + n != s3.size()) return false;
+
+        // Use vector<bool>, but assign with || instead of |=
+        vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
+
+        dp[m][n] = true;  // base case: empty suffixes match
+
+        for (int i = m; i >= 0; i--) {
+            for (int j = n; j >= 0; j--) {
+                if (i < m && s1[i] == s3[i + j])
+                    dp[i][j] = dp[i][j] || dp[i + 1][j];  // take from s1
+
+                if (j < n && s2[j] == s3[i + j])
+                    dp[i][j] = dp[i][j] || dp[i][j + 1];  // take from s2
+            }
+        }
+
+        return dp[0][0];
+    }
+};
+
