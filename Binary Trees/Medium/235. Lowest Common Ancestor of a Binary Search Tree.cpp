@@ -1,25 +1,17 @@
 class Solution {
 public:
-    TreeNode* dfs(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if (!root) return nullptr;
 
-        // both p and q smaller → go left
-        if ((p->val < root->val) && (q->val < root->val)) {
-            TreeNode* left = dfs(root->left, p, q);
-            return left;
-        }
+        // both nodes are in left subtree
+        if (p->val < root->val && q->val < root->val)
+            return lowestCommonAncestor(root->left, p, q);
 
-        // both p and q greater → go right
-        if ((p->val > root->val) && (q->val > root->val)) {
-            TreeNode* right = dfs(root->right, p, q);
-            return right;
-        }
+        // both nodes are in right subtree
+        if (p->val > root->val && q->val > root->val)
+            return lowestCommonAncestor(root->right, p, q);
 
-        // otherwise one on left and one on right (or root == p/q)
+        // split point or one node is the root
         return root;
-    }
-
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        return dfs(root, p, q);
     }
 };
