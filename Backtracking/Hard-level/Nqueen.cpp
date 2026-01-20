@@ -1,27 +1,49 @@
-def solve_n_queens(n):
-    pos = [-1] * n   # pos[row] = column of queen in that row
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> board(n, string(n, '.'));
 
-    def is_safe(row, col):
-        for prev_row in range(row):
-            # same column
-            if pos[prev_row] == col:
-                return False
-            # diagonal check
-            if abs(pos[prev_row] - col) == abs(prev_row - row):
-                return False
-        return True
+        vector<bool> col(n, false);
+        vector<bool> diag1(2 * n - 1, false); // row - col + n - 1
+        vector<bool> diag2(2 * n - 1, false); // row + col
 
-    def backtrack(row):
-        # base case: all queens placed
-        if row == n:
-            print(pos)   # one valid solution
-            return
+        solve(0, n, board, ans, col, diag1, diag2);
+        return ans;
+    }
 
-        for col in range(n):
-            if is_safe(row, col):
-                pos[row] = col          # PLACE queen
-                backtrack(row + 1)      # GO deeper
-                pos[row] = -1           # REMOVE queen (BACKTRACK)
+    void solve(int row, int n,
+               vector<string>& board,
+               vector<vector<string>>& ans,
+               vector<bool>& col,
+               vector<bool>& diag1,
+               vector<bool>& diag2) {
 
-    backtrack(0)
+        if (row == n) {
+            ans.push_back(board);
+            return;
+        }
+
+        for (int c = 0; c < n; c++) {
+
+            if (col[c] || diag1[row - c + n - 1] || diag2[row + c])
+                continue;
+
+            // PLACE
+            board[row][c] = 'Q';
+            col[c] = true;
+            diag1[row - c + n - 1] = true;
+            diag2[row + c] = true;
+
+            // NEXT ROW (this is the "row loop")
+            solve(row + 1, n, board, ans, col, diag1, diag2);
+
+            // UNPLACE (backtrack)
+            board[row][c] = '.';
+            col[c] = false;
+            diag1[row - c + n - 1] = false;
+            diag2[row + c] = false;
+        }
+    }
+};
 
