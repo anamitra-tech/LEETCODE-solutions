@@ -12,7 +12,7 @@ public:
                 slots -= 1;
                 i++;
             } else {
-                // skip number characters (could be multi-digit)
+            
                 while (i < n && preorder[i] != ',') i++;
                 slots += 1; // 2 new slots - 1 = +1
             }
