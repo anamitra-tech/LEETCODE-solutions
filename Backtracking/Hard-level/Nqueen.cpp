@@ -5,8 +5,8 @@ public:
         vector<string> board(n, string(n, '.'));
 
         vector<bool> col(n, false);
-        vector<bool> diag1(2 * n - 1, false); // row - col + n - 1
-        vector<bool> diag2(2 * n - 1, false); // row + col
+        vector<bool> diag1(2 * n - 1, false); 
+        vector<bool> diag2(2 * n - 1, false); 
 
         solve(0, n, board, ans, col, diag1, diag2);
         return ans;
@@ -38,7 +38,7 @@ public:
             // NEXT ROW (this is the "row loop")
             solve(row + 1, n, board, ans, col, diag1, diag2);
 
-            // UNPLACE (backtrack)
+            // (backtrack)
             board[row][c] = '.';
             col[c] = false;
             diag1[row - c + n - 1] = false;
