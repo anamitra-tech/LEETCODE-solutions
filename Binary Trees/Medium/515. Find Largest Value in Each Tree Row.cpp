@@ -9,7 +9,7 @@ public:
 
         while (!q.empty()) {
             int levelSize = q.size();
-            int maxVal = INT_MIN;  // Minimum possible to start
+            int maxVal = INT_MIN; 
 
             for (int i = 0; i < levelSize; ++i) {
                 TreeNode* temp = q.front();
