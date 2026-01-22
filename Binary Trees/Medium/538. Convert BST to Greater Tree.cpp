@@ -8,7 +8,7 @@ public:
         dfs(root->right);          // Right
 
         sum += root->val;          // Update sum
-        root->val = sum;           // Update current node's value
+        root->val = sum;          
 
         dfs(root->left);           // Left
     }
