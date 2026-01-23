@@ -12,6 +12,7 @@ public:
         bool left = nlr(p->left, q->left);
         bool right = nlr(p->right, q->right);
 
+        
         return left && right;
     }
 };
