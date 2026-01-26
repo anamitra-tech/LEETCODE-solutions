@@ -9,7 +9,7 @@ public:
         int right = dfs(root->right);
 
         // Update max diameter at this node
-        maxDiameter = max(maxDiameter, left + right); // number of edges!
+        maxDiameter = max(maxDiameter, left + right);
 
         return 1 + max(left, right); // return depth
     }
